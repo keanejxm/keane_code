@@ -7,9 +7,13 @@
 :desc  
 """
 import pandas as pd
+
 # 筛选
 df = pd.read_excel("")
-res_df = df[~df["账套全称"].str.contains("阳光",na=True)]
+# 筛选出某列不包含关键字的数据
+res_df1 = df[~df["账套全称"].str.contains("阳光", na=True)]
+# 筛选出某列包含关键字的数据
+res_df2 = df[df["账套全称"].str.contains("阳光", na=True)]
 # 修改某一行某一列的值
-for df_index,df_value in df.iterrows():
-    df.loc[df_index,"aaaaa"] = "aaaa"
+for df_index, df_value in df.iterrows():
+    df.loc[df_index, "aaaaa"] = "aaaa"
