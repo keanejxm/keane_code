@@ -17,6 +17,8 @@ res_df2 = df[df["账套全称"].str.contains("阳光", na=True)]
 # 修改某一行某一列的值
 for df_index, df_value in df.iterrows():
     df.loc[df_index, "aaaaa"] = "aaaa"
+    # 修改值等于值的值
+    df.loc[df['is_dup'] == True, "is_dup"] = "是"
 
 # dataFrame排序
 df.sort_values(by = ["column"],ascending=True)
