@@ -408,7 +408,8 @@ class AliEmailCom:
         cookie_dict = self._get_cookie()
         self.csrf_token = csrf_token
         browser_log = self.browser_log(url_index, csrf_token)
-        self.get_shortcut_list(url_index,csrf_token,root_token)
+        self.get_shortcut_list(url_index, csrf_token, root_token)
+        self._delegate_account(url_index,csrf_token,root_token)
         ali_file_content = json.dumps(cookie_dict)
         ali_file_path = f"{self._file_path}/cookie_files/qiye_cookie"
         # self._save_cookie(ali_file_path, ali_file_content)
@@ -436,6 +437,21 @@ class AliEmailCom:
 
     def get_shortcut_list(self, refer_url, csrf_token, root_token):
         url = f"{QIYE_HOST}/alimail/ajax/navigate/getShortcutList.txt?_timestamp_={int(time.time() * 1000)}"
+        data = {
+            "_csrf_token_": csrf_token,
+            "_root_token_": root_token,
+            "_refer_hash_": "",
+            "_tpl_": "DEFAULT"
+        }
+        headers = self._headers(url)
+        headers["Origin"] = QIYE_HOST
+        headers["Referer"] = refer_url
+        res = self.session.post(url, headers=headers, data=data)
+        if res.status_code == requests.codes.ok:
+            res_json = json.loads(res.content)
+
+    def _delegate_account(self, refer_url, csrf_token, root_token):
+        url = f"https://qiye.aliyun.com/alimail/ajax/account/getDelegatedAccountList.txt?_timestamp_={int(time.time() * 1000)}"
         data = {
             "_csrf_token_": csrf_token,
             "_root_token_": root_token,
