@@ -407,7 +407,7 @@ class AliEmailCom:
         self.attach_token = res["attachToken"]
         cookie_dict = self._get_cookie()
         self.csrf_token = csrf_token
-        browser_log = self.browser_log(url_index, csrf_token)
+        browser_log = self.browser_log(url_index, csrf_token,root_token)
         self.get_shortcut_list(url_index, csrf_token, root_token)
         self._delegate_account(url_index,csrf_token,root_token)
         ali_file_content = json.dumps(cookie_dict)
@@ -416,24 +416,39 @@ class AliEmailCom:
 
         return True
 
-    def browser_log(self, refer_url, csrf_token):
+    def browser_log(self, refer_url, csrf_token,root_token):
         """更新tooken"""
-        url = f"{QIYE_HOST}/alimail/ajax/error/browserLog.txt?_timestamp_={int(time.time() * 1000)}"
-        headers = self._headers(url)
-        headers["Origin"] = QIYE_HOST
-        headers["Referer"] = refer_url
-        data = {
-            "_root_token_": "dC00Nzg5NzEtcGxxS05X7739",
-            "key": "",
-            "text": f"[CSRF_UPDATE] New: [{csrf_token}] Old: [{csrf_token}]",
-            "level": "info"
-        }
-        res = self.session.post(url, headers=headers, data=data)
-        if res.status_code == requests.codes.ok:
-            res_json = json.loads(res.content)
-            return True
-        else:
-            raise ConnectionError("请求错误")
+        for text in ["[FRAMEWORK_INIT] Framework initialized. Cost: 803ms",f"[CSRF_UPDATE] New: [{csrf_token}] Old: [{csrf_token}]",
+                     "[THEME_LOADED] default"]:
+        # data = {
+        #     "_root_token_	dC0yMjI3Ny1sZTc1ckk6400
+        #     key
+        #     text	[FRAMEWORK_INIT] Framework initialized. Cost: 803ms
+        #     level	info"
+        # }
+        # data = {
+        #     "_root_token_	dC0yMjI3Ny1sZTc1ckk6400
+        #     key
+        #     level	info
+        #     text	[THEME_LOADED] default"
+        #             }
+            url = f"{QIYE_HOST}/alimail/ajax/error/browserLog.txt?_timestamp_={int(time.time() * 1000)}"
+            headers = self._headers(url)
+            headers["Origin"] = QIYE_HOST
+            headers["Referer"] = refer_url
+            data = {
+                "_root_token_": root_token,
+                "key": "",
+                # "text": f"[CSRF_UPDATE] New: [{csrf_token}] Old: [{csrf_token}]",
+                "text": text,
+                "level": "info"
+            }
+            res = self.session.post(url, headers=headers, data=data)
+            if res.status_code == requests.codes.ok:
+                res_json = json.loads(res.content)
+                return True
+            else:
+                raise ConnectionError("请求错误")
 
     def get_shortcut_list(self, refer_url, csrf_token, root_token):
         url = f"{QIYE_HOST}/alimail/ajax/navigate/getShortcutList.txt?_timestamp_={int(time.time() * 1000)}"
