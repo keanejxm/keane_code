@@ -401,19 +401,18 @@ class AliEmailCom:
         print(cookie_dict)
         root_token = self._index(url_index, url_login_index)
         cookie_dict = self._get_cookie()
-        print(cookie_dict)
         csrf_token = cookie_dict["_csrf_token_"]
         res = self.get_time_refresh_data(url_index, csrf_token, root_token)
         self.attach_token = res["attachToken"]
         cookie_dict = self._get_cookie()
         self.csrf_token = csrf_token
+        print(cookie_dict)
         browser_log = self.browser_log(url_index, csrf_token,root_token)
+        self._delegate_account(url_index, csrf_token, root_token)
         self.get_shortcut_list(url_index, csrf_token, root_token)
-        self._delegate_account(url_index,csrf_token,root_token)
         ali_file_content = json.dumps(cookie_dict)
         ali_file_path = f"{self._file_path}/cookie_files/qiye_cookie"
         # self._save_cookie(ali_file_path, ali_file_content)
-
         return True
 
     def browser_log(self, refer_url, csrf_token,root_token):
@@ -446,7 +445,7 @@ class AliEmailCom:
             res = self.session.post(url, headers=headers, data=data)
             if res.status_code == requests.codes.ok:
                 res_json = json.loads(res.content)
-                return True
+                # return True
             else:
                 raise ConnectionError("请求错误")
 
