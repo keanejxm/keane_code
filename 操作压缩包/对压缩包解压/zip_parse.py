@@ -8,6 +8,7 @@
 """
 import io
 import zipfile
+import rarfile
 import os
 
 
@@ -36,5 +37,11 @@ def unzip():
     else:
         print("不是压缩文件")
 
+def unrar():
+    with open("1111.rar","rb") as r:
+        content  = b"".join(r.readlines())
+    rar = rarfile.RarFile(io.BytesIO(content))
+    rar.extractall("E:\keane_python\github\keane_code\操作压缩包\对压缩包解压")
+    print(rar)
 
-unzip()
+unrar()
