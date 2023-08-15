@@ -6,6 +6,7 @@
 :time  2023/7/6 10:07
 :desc  
 """
+from docx import Document
 from docx.oxml.ns import qn
 from docx.shared import Pt
 import pandas as pd
@@ -132,3 +133,51 @@ class DealDocxTable:
                 column.append(f"column_{len(column) + i}")
         df = pd.DataFrame(table_list, columns=column)
         return df
+
+    def remove_table_tr(self):
+        doc = Document("建信科创新兴一号私募股权投资基金.docx")
+        for table in doc.tables:
+            table_cell_text = table.cell(0, 0).text
+            if table_cell_text == "项目":
+                deal_doc_table = DealDocxTable(table, index=1)
+                if "报告期期间" in deal_doc_table.headers_values:
+                    tbl = table._tbl
+                    for row in table.rows:
+                        row_value = list()
+                        for cell in row.cells:
+                            row_value.append(cell.text)
+                        print(row_value)
+                        tbl.remove(row._tr)
+                        break
+        doc.save("aaa.docx")
+    def number_deal(self):
+        num_value = 1000000
+        if "." in str(num_value):
+            # nums:整数位，surplus:小数位
+            nums, surplus = str(num_value).split(".")
+        else:
+            nums, surplus = str(num_value), "0"
+        res = ""
+        num = 0
+        for word in reversed(nums):
+            res += word
+            num += 1
+            if num == 3:
+                res += ","
+                num = 0
+        if surplus != "0":
+            res = "".join(reversed(res)) + "." + surplus
+        else:
+            res = "".join(reversed(res))
+        res = res.lstrip(",")
+        print(res)
+
+
+if __name__ == '__main__':
+
+    doc =Document("8账户业务申请表-产品投资者.docx")
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                print(cell.text.split("\n"))
+                print("*"*100)
