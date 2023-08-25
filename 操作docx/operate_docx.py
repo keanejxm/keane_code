@@ -175,7 +175,7 @@ class DealDocxTable:
 
 if __name__ == '__main__':
 
-    doc =Document("8账户业务申请表-产品投资者.docx")
+    doc =Document("基金交易类业务申请表.docx")
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
