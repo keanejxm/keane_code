@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="创建元素节点" onclick="fn1();">
+<input type="button" value="创建文本节点" onclick="fn2();">
+<input type="button" value="添加子节点" onclick="fn3();">
+<input type="button" value="删除子节点" onclick="fn4();">
+<input type="button" value="克隆节点" onclick="fn5();">
+<div id="div01">
+    我是div
+    <input type="button" value="按钮">
+</div>
+<script>
+    /*
+    元素节点/标签 创建 添加 删除
+    js操作 html标签
+     */
+
+    //1.创建标签
+    function fn1() {
+        //创建div
+        var div = document.createElement('div');
+        console.log(div);
+    }
+
+    //2.创建 文本节点
+    function fn2() {
+        //创建div 内容：我是div
+        var txt = document.createTextNode('我是div');
+        console.log(txt);
+    }
+
+
+
+    //3.
+     function fn3() {
+        //创建div 内容：我是div
+         var div = document.createElement('div');
+         var txt = document.createTextNode('我是div');
+         //层级 嵌套
+         div.appendChild(txt);
+         console.log(div);
+         //
+         document.body.appendChild(div);
+    }
+
+    //4.删除
+    function fn4() {
+        //删除页面中第一个按钮
+        var btn1 = document.getElementsByTagName('input')[0];
+        document.body.removeChild(btn1);
+    }
+
+    //5.克隆
+    function fn5() {
+        //复制 div标签
+        var div = document.getElementsByTagName('div')[0];
+        console.log(div.cloneNode(false));//只拷贝 标签自身 浅拷贝
+        console.log(div.cloneNode(true));// 深拷贝
+
+    }
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>样式设置</title>
+    <style>
+        .one {
+            color: red;
+        }
+        .two {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div>我是div</div>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //设置样式css()
+    // $('div').css('color','red');
+    // $('div').css({'width':'100px','height':'100px','background-color':'blue'});
+
+    //addClass() 添加类名
+    //该方法也可以添加多个类名，空格隔开即可
+    //原生js div.className = 'one two three';
+    $('div').addClass('one two');
+    // $('div').addClass('two');
+    //removeClass(类名)指定删除类名，没有参数，删除所有类名
+    // $('div').removeClass('one');
+    // $('div').removeClass();
+
+
+
+
+
+
+</script>
+</body>
+</html>

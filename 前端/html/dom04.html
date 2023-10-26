@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>十一假期去哪玩？</h2>
+<input type="checkbox" name="hobbys" value="yhy">颐和园
+<input type="checkbox" name="hobbys" value="ymy">圆明园
+<input type="checkbox" name="hobbys" value="ttgy">天坛公园
+<input type="checkbox" name="hobbys" value="dtgy">地坛公园
+<input type="checkbox" name="hobbys" value="yytgy">玉渊潭公园
+<br>
+<button onclick="fn1();">全选</button>
+<button onclick="fn2();">取消全选</button>
+<button onclick="fn3();">反选</button>
+<script>
+    //全选
+    function fn1(){
+        //所有的复选框 选中 checked
+        var checks = document.getElementsByTagName('input');
+        for (var i = 0; i < checks.length; i++) {
+            // checks[i].checked
+            checks[i].checked = true;
+        }
+    }
+
+    //取消全选
+    function fn2(){
+        //所有的复选框 选中 checked
+        var checks = document.getElementsByTagName('input');
+        for (var i = 0; i < checks.length; i++) {
+            // checks[i].checked
+            checks[i].checked = false;
+        }
+    }
+
+    //反选
+    function fn3(){
+        //所有的复选框 选中 checked
+        var checks = document.getElementsByTagName('input');
+        for (var i = 0; i < checks.length; i++) {
+            // 判断
+            // if (checks[i].checked === true) {
+            //     checks[i].checked = false;
+            // } else {
+            //     checks[i].checked = true;
+            // }
+            // checks[i].checked = (checks[i].checked === true ? false : true);
+            checks[i].checked = !checks[i].checked;
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM-获取元素节点/标签节点</title>
+</head>
+<body>
+<ul>
+    <li>我是li</li>
+    <li class="li">我是li</li>
+    <li id="li03" class="li">我是li</li>
+    <li>我是li</li>
+    <li>我是li</li>
+</ul>
+<form action="">
+    <input type="radio" name="sex" value="female">男
+    <input type="radio" name="sex" value="male">女
+    爱好：
+    <input type="checkbox" name="hobbys" value="football">足球
+    <input type="checkbox" name="hobbys" value="basketball">篮球
+    <input type="checkbox" name="hobbys" value="sleeping">睡觉
+</form>
+<script>
+    /*
+    给页面中第三个li 设置 背景颜色为红色 js完成
+    1.第三个li 获取
+    2.设置 背景颜色
+     */
+
+    /*
+    如何获取？
+        - document.getElementsByTagName('标签名') 通过 标签名 获取标签
+            - 返回值：类/伪数组 多个标签   标签选择器-多个标签
+        - document.getElementById('id值')
+            - 返回值：唯一标签   id选择器
+        - document.getElementsByClassName('类名')
+            - 返回值：类数组 多个标签
+        - document.getElementsByName() 通过 name属性获取标签
+            - 返回值：类数组 可以获取多个标签
+     */
+    // var lis = document.getElementsByTagName('li');
+    // console.log(lis[2]);
+    // var li = document.getElementById('li03');
+    // console.log(li);
+    // var lis = document.getElementsByClassName('li');
+    // console.log(lis[1]);
+
+    // var radios = document.getElementsByName('sex');
+    // console.log(radios);
+
+
+    //
+    var li = document.getElementById('li03');
+    //设置样式
+    //标签.style.样式名称 = '样式值';
+    li.style.color = 'red';
+    li.style.width = '200px';
+    li.style.height = '80px';
+    //注意：背景颜色
+    //样式名称中有连字符-,js设置样式时，需要去掉-，转为驼峰命名
+    li.style.backgroundColor = 'green';
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

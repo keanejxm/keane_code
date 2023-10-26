@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //1.算数运算符
+    console.log(10 + 2);
+    console.log("10" + "2"); //
+    console.log("10" + 2 + '40'); // +可以实现拼接
+    //隐式转换数据类型
+    console.log("10" + (2 + 40)); // +可以实现拼接
+
+    //
+    console.log(10 * 2);
+    //隐式转换  * / % -
+    // console.log("2abc" * 10);//20
+
+    //比较运算符
+    console.log(10 == '10');//true
+    console.log(10 === '10');//false
+
+    //赋值运算符
+    var a = 10;
+    // a++; //+=1
+    // console.log(a);//11
+    // a--;//-=1
+    // console.log(a);//10
+    console.log(++a + 1);//12
+    console.log(a);//11
+
+    //用户输入任意两个数字，求较大者
+    //input()
+    var num1 = Number(prompt('请输入第一个数字'));
+    var num2 = Number(prompt('请输入第二个数字'));
+    // console.log(num1);
+    var max = num1 > num2 ? num1 : num2;
+    console.log(max);
+</script>
+</body>
+</html>

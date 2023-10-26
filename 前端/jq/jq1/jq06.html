@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-第一个demo</title>
+</head>
+<body>
+<div id="div" class="li">我是div</div>
+<ul>
+    <!--<p>我是p标签</p>-->
+    <!--<p>我是p标签</p>-->
+    <li class="li" id="li03">我是li
+        <!--<p>我是li下的p标签</p>-->
+        <!--<p>我是li下的p标签</p>-->
+    </li>
+    <li>我是li
+        <!--<ol>-->
+            <!--<li>我是li内部的ol内li</li>-->
+            <!--<li>我是li内部的ol内li</li>-->
+            <!--<li>我是li内部的ol内li</li>-->
+            <!--<li>我是li内部的ol内li</li>-->
+        <!--</ol>-->
+    </li>
+    <li class="li">我是li</li>
+    <li id="li04">我是li</li>
+    <li>我是li</li>
+</ul>
+<form action="">
+    <input type="text" name="username">
+    <br>
+    <input type="password" name="userpwd">
+    <br>
+    <input type="checkbox" name="hobbys" value="ft"> 足球
+    <input type="checkbox" name="hobbys" value="bt" checked="checked"> 篮球
+    <br>
+    性别：
+    <input type="radio" name="sex" value="female">女
+    <input type="radio" name="sex" value="male">男
+    <br>
+    <input type="submit">
+</form>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //js代码  jquery使用
+    // var $div = $('#div');
+    // $div.css('color','red');
+
+    //类选择器  标签选择器
+    // var $lis = $('li');
+    // console.log($lis);
+    // $lis.css('color','red');
+
+    //并集  交集
+    // $('div,.li,#li04').css('color','red');
+
+
+    /*
+    css() jq设置标签样式方法
+
+     */
+
+    // 给页面中div标签 设置属性 title属性
+    //把jq对象 转为 dom对象
+    // $('div').get(0).title = 'div';
+    // $('div')[0].title = 'div';
+    // console.log($('div')[0]);
+
+    //把dom对象 转为 jq对象
+    // var div = document.getElementById('div');
+    // $(div).css('color','red');
+
+    /*
+    层级选择器
+     */
+    // console.log($('ul p'));
+    // console.log($('ul > p'));
+    // console.log($('ul').find('p'));//所有后代中进行查找
+    // console.log($('ul').children('p'));//所有儿子子元素节点中查找
+    // console.log($('#li03 ~ li'));//~之后的所有的兄弟标签
+    // console.log($('#li03 + li'));//+ 紧邻其后的兄弟标签
+    // console.log($('#li03').next());//当前标签的下一个兄弟标签
+    // console.log($('#li03').prev());//上一个兄弟标签
+    // console.log($('#li03').parent());//亲爹
+
+    //:odd奇数 :even偶数  索引为标准
+    // $('li:odd').css('background-color','red');
+    // $('li:even').css('background-color','green');
+    //li中 第一个
+    // $('li:first').css('background-color','green');
+    // $('li:last').css('background-color','green');
+    // //:eq(index) 获取某一个index对应的标签
+    // $('li:eq(3)').css('background-color','green');
+    // $('li:lt(3)').css('background-color','green');
+    // $('li:gt(3)').css('background-color','green');
+
+    //通过属性
+    // console.log($('[name]'));//有name属性的标签
+    // console.log($('[name="username"]'));//有name属性的标签
+
+    //type类型来获取
+    console.log($(':text'));
+    console.log($(':password'));
+    console.log($(':radio'));
+    console.log($(':checkbox'));
+    console.log($(':checked'));
+    console.log($(':selected'));
+</script>
+</body>
+</html>

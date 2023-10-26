@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件类型</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccccc;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var div = document.getElementsByTagName('div')[0];
+            console.log(div);
+            div.style.backgroundColor = 'red';
+        }
+    </script>
+</head>
+<body>
+<div></div>
+<input type="text">
+<select name="sel" id="">
+    <option value="bj">北京</option>
+    <option value="tj">天津</option>
+    <option value="sh">上海</option>
+    <option value="hn">河南</option>
+</select>
+<script>
+    /*
+    div 鼠标移入：onmouseover  设置背景颜色 绿色
+        鼠标移出：onmouseout               黄色
+        鼠标单击：Onclick                  粉色
+        鼠标双击  ondblclick               紫色
+        鼠标移动 onmousemove 多次触发
+     */
+    /*
+    事件绑定方式：
+        - 直接标签上
+        - 脚本
+     */
+    //1.获取div
+    var div = document.getElementsByTagName('div')[0];
+    div.onmouseover = function () {
+        div.style.backgroundColor = 'green';
+    };
+
+    div.onmouseout = function () {
+        div.style.backgroundColor = 'yellow';
+    };
+
+    div.onclick = function () {
+        div.style.backgroundColor = 'pink';
+    };
+    div.ondblclick = function () {
+        div.style.backgroundColor = 'purple';
+    };
+    div.onmousemove = function () {
+        console.log('onmousemove');
+    }
+
+    //输入框 获取焦点时，背景红色，焦点离开时，背景 绿色
+    /*
+    onfocus:获取焦点
+    onblur: 失去焦点
+    事件源
+     */
+    var txt = document.getElementsByTagName('input')[0];
+    txt.onfocus = function () {
+      this.style.backgroundColor = 'red';
+    };
+    txt.onblur = function () {
+      this.style.backgroundColor = 'green';
+    };
+
+    /*
+    下拉列表 改变选项
+    事件：onchange
+    事件源：select标签
+     */
+    var sel = document.getElementsByName('sel')[0];
+    sel.onchange = function(){
+        console.log('onchange');
+        console.log(this.value);
+        console.log(this.selectedIndex);
+    }
+
+
+    /*
+    onload页面加载事件
+        等到当前html页面，css，音频视频等都加载之后再触发该事件
+     */
+    // window.onload = function(){
+    //
+    // }
+
+
+
+
+</script>
+</body>
+</html>

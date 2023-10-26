@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-数据类型</title>
+</head>
+<body>
+<script>
+    //1.字符串类型
+    var s1 = '123';
+    console.log(s1);
+    var s2 = "abc";
+    console.log(s2);
+    //2.数值
+    var num1 = 123;
+    var num2 = 123.5;
+    console.log(num1,num2);
+
+    //3.布尔
+    var boo1 = true;
+    var boo2 = false;
+    console.log(boo1,boo2);
+
+    //检测数据类型方式
+    console.log(typeof(s1)); //string
+    console.log(typeof(s2));
+    console.log(typeof(num1));//number
+    console.log(typeof(num2));
+    console.log(typeof(boo1));
+    console.log(typeof(boo2));//boolean
+
+    //特殊数据类型
+    var a;
+    console.log(a);//undefined
+    a = 10;
+    console.log(a);
+    //NaN not a number 不是一个数字
+    console.log('abc' / 2);//NaN
+
+
+    //数据类型转换
+    // console.log(String(123));
+    // console.log(String(123.5));
+    // console.log(String(true));
+    // console.log(String(undefined));
+    // console.log(Number(true));//1
+    // console.log(Number(false));//0
+    // console.log(Number('123'));//123
+    // console.log(Number('123.5'));//123.5 int('123.5') 123 float('123.5') 123.0 123.5
+    // //转成 整形 丢失精度 只取整数部分
+    // console.log(parseInt('123.5'));//123
+    // //转为 浮点型数字
+    // console.log(parseFloat('123.5'));//123.5
+    // console.log(Boolean('123'));//true
+    // console.log(Boolean(''));//false
+    // console.log(Boolean(1));//true
+    // console.log(Boolean(0));//
+    // console.log(Boolean(null));//
+    // console.log(Boolean(undefined));//
+
+    //日期
+    var date1 = new Date();
+    console.log(date1,typeof date1);//object
+    //
+    console.log(date1.getFullYear());//2019
+    console.log(date1.getMonth() + 1);//8 比实际月份小1 0-11
+    console.log(date1.getDate());//19
+    console.log(date1.getHours());//11
+    console.log(date1.getMinutes());//49
+    console.log(date1.getSeconds());//50
+    console.log(date1.getMilliseconds());//707毫秒 1s=1000毫秒
+    console.log(date1.getTime());
+
+    //
+    var date2 = new Date('2019/9/29 17:00:00');
+    console.log(date2);
+
+    //数组
+    var l1 = [10,20,30];
+    console.log(l1);//[10, 20, 30]
+    var l2 = new Array('abc',10,true);
+    console.log(l2);
+    //元素 个数 len()
+    console.log(l2.length);//3
+    //增删改查
+    //下标
+    console.log(l2[0]);//abc
+    //方法
+    console.log(l2.push(50));//4
+    console.log(l2);//["abc", 10, true, 50]
+    console.log(l2.pop());//50
+    console.log(l2);//["abc", 10, true]
+    console.log(l2.indexOf(10,-3));//1
+    // console.log(l2.lastIndexOf());//1
+
+    //数学Math
+    //0-1随机小数 能取到0，不能取到1
+    console.log(Math.random());
+//    1.如何获取到 0-9之间的整数
+    console.log(parseInt(Math.random()*10));
+    console.log(Math.ceil(-2.5));//向上取整 -2
+    console.log(Math.floor(-2.5));//向下取整 -3
+    console.log(parseInt(-2.5));//-2
+    //四舍五入
+    console.log(Math.round(2.45));//3
+    //
+    console.log(Math.abs(-2.5));
+
+</script>
+</body>
+</html>

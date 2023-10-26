@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-动画</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="show()">
+<input type="button" value="hide()">
+<input type="button" value="toggle()">
+<input type="button" value="slideDown()">
+<input type="button" value="slideUp()">
+<input type="button" value="slideToggle()">
+<input type="button" value="fadeIn()">
+<input type="button" value="fadeOut()">
+<input type="button" value="fadeToggle()">
+<input type="button" value="fadeTo()">
+<div></div>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //
+    $('input:first').click(function(){
+        // $('div').css('display','block');
+        /*
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').show(2000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(1)').click(function(){
+        // $('div').css('display','none');
+        /*
+        hide隐藏
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').hide(2000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(2)').click(function(){
+        // $('div').css('display','none');
+        /*
+        toggle 切换
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').toggle(2000);
+    });
+
+    //slideDown()
+    $('input:eq(3)').click(function(){
+        // $('div').css('display','none');
+        /*
+        slide 滑动
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').slideDown(2000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(4)').click(function(){
+        // $('div').css('display','none');
+        /*
+        slide 滑动
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').slideUp(2000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(5)').click(function(){
+        // $('div').css('display','none');
+        /*
+        slide 滑动
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').slideToggle(2000,function(){
+            alert('停止');
+        });
+    });
+
+
+    //fade 阴影 褪色
+    $('input:eq(6)').click(function(){
+        // $('div').css('display','none');
+        /*
+        fade 不透明度 颜色 从透明 到 颜色最正值 渐变过程 淡入
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').fadeIn(5000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(7)').click(function(){
+        // $('div').css('display','none');
+        /*
+        fade 不透明度 颜色 从透明 到 颜色最正值 渐变过程 淡入
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').fadeOut(5000,function(){
+            alert('停止');
+        });
+    });
+
+    $('input:eq(8)').click(function(){
+        // $('div').css('display','none');
+        /*
+        fade 不透明度 颜色 从透明 到 颜色最正值 渐变过程 淡入
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').fadeToggle(5000,function(){
+            alert('停止');
+        });
+    });
+
+
+     $('input:eq(9)').click(function(){
+        // $('div').css('display','none');
+        /*
+        fade 不透明度 颜色 从透明 到 颜色最正值 渐变过程 淡入
+            opacity: 0-1 0 表示透明 1 不透明正值
+        参数一：时间  单位毫秒 动画完成
+        参数二：callback 回调函数
+         */
+        $('div').fadeTo(5000,0.2,function(){
+            alert('停止');
+        });
+    });
+</script>
+</body>
+</html>

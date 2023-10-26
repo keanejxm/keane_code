@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-内容操作</title>
+</head>
+<body>
+<div></div>
+<input type="text">
+<input type="text">
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //div 设置内容
+    //原生js innerHTML：标签+文本
+    //jq:
+    // html() 有参数-设置内容 标签+文本
+    //html() 无参数-获取 访问
+    $('div').html('<h1>我是div</h1>');
+    console.log($('div').html());
+
+    //表单元素内容操作
+    //原生js .value
+    //jq : val()
+    //val() -有参数 设置内容
+    //val() -无参数 获取 访问
+    $('input').val('请输入');
+    console.log($('input').val());
+
+
+
+</script>
+</body>
+</html>

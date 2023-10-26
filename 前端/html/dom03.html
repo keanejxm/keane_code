@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dom-练习1</title>
+</head>
+<body>
+<input type="button" value="开始" onclick="fn();">
+<script>
+    //点击
+    function fn() {
+        //判断 值
+        var btn = document.getElementsByTagName('input')[0];
+        // if (btn.value === '开始') {
+        //     btn.value = '停止';
+        // } else {
+        //     btn.value = '开始';
+        // }
+        btn.value = (btn.value === '开始' ? '停止' : '开始');
+    }
+
+
+
+
+</script>
+</body>
+</html>

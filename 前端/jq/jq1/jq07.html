@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-dom操作</title>
+</head>
+<body>
+<input type="button" value="创建元素">
+<input type="button" value="添加节点尾部添加">
+<input type="button" value="添加节点头部添加">
+<input type="button" value="删除节点1">
+<input type="button" value="删除节点2">
+<div>
+    我是div
+    <a href="#">超链接</a>
+</div>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    /*
+    按钮 点击
+    jq： click()
+     */
+    $("input:first").click(function(){
+        //创建元素
+        //document.createElement() 创建标签
+        //document.createTextNode() 创建文本
+        var $div = $('<div>我是div</div>');
+        console.log($div);
+    });
+
+    //添加节点 尾部
+    $("input:eq(1)").click(function(){
+        //创建元素
+        //document.createElement() 创建标签
+        //document.createTextNode() 创建文本
+        var $div = $('<div>我是div</div>');
+        //appendChild()
+        //append()
+        // $("body").append($div);
+        $div.appendTo($('body'));
+    });
+
+    // 头部
+    $("input:eq(2)").click(function(){
+        //创建元素
+        //document.createElement() 创建标签
+        //document.createTextNode() 创建文本
+        var $div = $('<div>我是div</div>');
+        //appendChild()
+        //prepend() prependTo()
+        // $('body').prepend($div);
+        $div.prependTo($("body"));
+    });
+
+    //删除
+    $("input:eq(3)").click(function(){
+        //第一个按钮要删除
+        //removeChild()
+        // 删除节点.remove()
+        // $('input:first').remove();
+        //要删除页面中的div
+        // $('div').remove();
+
+    });
+
+
+    $("input:eq(4)").click(function(){
+        //empty() 清空
+        // 光杆司令 只剩自身
+        $('div').empty();
+
+    });
+
+</script>
+</body>
+</html>

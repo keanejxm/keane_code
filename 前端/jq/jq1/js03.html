@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-表单</title>
+</head>
+<body>
+<form action="js01.html" method="get">
+    用户名： <input type="text" name="username"><br>
+    密码： <input type="password" name="userpwd"><br>
+    <input type="submit" value="提交">
+</form>
+<script>
+    /*
+    form表单，点击submit按钮，表单提交到action路径
+    a标签 超链接 href
+    系统默认行为
+        - form表单 submit 表单提交  事件 onsubmit  事件源：form标签
+    - 需求：
+        -
+     */
+    var form1 = document.forms[0];
+    form1.onsubmit = function (event) {
+        // alert(123);
+        //判断 两个框是否为空
+        var username = document.getElementsByName('username')[0];
+        var userpwd = document.getElementsByName('userpwd')[0];
+        //value属性获取值
+        if (username.value === '' || userpwd.value === '') {
+            alert('不允许为空！请重新填写');
+            //阻止默认行为 提交
+            event.preventDefault();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

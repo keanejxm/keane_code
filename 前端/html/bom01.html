@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOM</title>
+</head>
+<body>
+<button onclick="fn();">按钮</button>
+<script>
+    //window对象
+    // console.log(window);
+
+    /*
+    window对象 常用方法
+        window可省略
+     */
+    // window.alert(123);
+    // window.prompt('请输入');
+    // window.setInterval();
+    // window.setTimeout();
+    // window.clearInterval();
+    //confirm确认框 返回值 true/false
+    // console.log(window.confirm('你确定要删除这个商品吗？'));
+
+
+    /*
+    location 位置 地址
+    location对象
+     */
+    function fn() {
+        // window.location.href = 'bom02.html'; //导航 功能
+        //reload() 方法 刷新页面 等同于 浏览器中 刷新按钮
+        window.location.reload();
+    }
+
+    //history
+    /*
+    history：历史 浏览器历史访问记录
+      history对象
+        - back() 返回  后退 上一页
+        - forward() 向前 前进 下一页
+        - go(n) 去 跳到当前页之后(正数)/之前（负数）的第N个记录
+     */
+</script>
+</body>
+</html>

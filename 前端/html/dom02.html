@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM-属性设置</title>
+</head>
+<body>
+<form action="">
+    姓名：<input type="text" name="username"><br>
+    密码： <input type="password" name="userpwd"><br>
+    性别：
+    <input type="radio" name="sex" value="female">男
+    <input type="radio" name="sex" value="male">女 <br>
+    爱好：
+    <input type="checkbox" name="hobbys" value="football">足球
+    <input type="checkbox" name="hobbys" value="basketball">篮球
+    <input type="checkbox" name="hobbys" value="sleeping">睡觉
+    <br>
+    <select name="sel" id="">
+        <option value="beijing">北京</option>
+        <option value="tj">天津</option>
+    </select>
+    <input type="submit" value="注册">
+</form>
+<div></div>
+<a href="">超链接</a>
+<img src="" alt="">
+<script>
+    /*
+    属性节点操作
+        - 属性 点语法
+        - 访问 、 设置
+     */
+
+    //1.a标签 设置url路径
+    //获取a标签
+    var a_ele = document.getElementsByTagName('a')[0];
+    //设置href
+    a_ele.href = 'bom01.html';
+    console.log(a_ele.href);
+    //2.id属性
+    a_ele.id = 'a01';
+    //3.class属性 特例-替代者 className
+    a_ele.className = 'a';
+    //4.img标签  设置 src路径
+
+    /*
+    表单元素 属性：很重要
+        - 表单元素 内容 值 操作 value属性
+    非表单元素 div a span h
+        - 操作内容 innerHTML
+     */
+    //5.获取文本框
+    // var username = document.getElementsByName('username');
+    // username[0].value = '请输入';
+    // console.log(username[0].value);//value值 数据类型 字符串
+
+    // var userpwd = document.getElementsByName('userpwd');
+    // userpwd[0].value = '请输入';
+    // console.log(userpwd[0].value);//value值 数据类型 字符串
+
+    // var sex = document.getElementsByName('sex');
+    // console.log(sex[0].value);
+
+    //6.checked属性 可简化为 true false
+    //7.单选 多选 checked属性；下拉列表 选项选中 selected属性 true false
+    // var sex = document.getElementsByName('sex');
+    // sex[0].checked = true;
+
+    //8.给div设置内容
+    //innerHTML 不仅设置文本+标签
+    // var div = document.getElementsByTagName('div')[0];
+    // div.innerHTML = '我是div<input type="submit">';
+    // console.log(div.innerHTML);
+
+    //倒计时
+    var div = document.getElementsByTagName('div')[0];
+    var num = 5;
+    // 543210 自动跳转走 0时候 跳转走 location.href
+    window.setInterval(fn,1000);
+    function fn() {
+
+        div.innerHTML = '<a href="dom03.html">' + num + '秒后自动跳转</a>';
+        num--;
+        if (num === -1) {
+            location.href = 'dom03.html';
+        }
+    }
+
+</script>
+</body>
+</html>

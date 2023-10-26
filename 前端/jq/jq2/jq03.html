@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-事件</title>
+</head>
+<body>
+<input type="text">
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //当前输入框内部 键入 某个字符
+    // 按键
+    //keydown keyup 合成版 keypress
+    // $('input').keypress(function(){
+    //     console.log($(this).val());
+    // });
+
+    //hover 鼠标移入移除
+    // mouseover mouseout 合成版
+    // $('input').mouseover(function(){
+    //     $(this).css('background-color','red');
+    // });
+    //
+    // $('input').mouseout(function(){
+    //     $(this).css('background-color','green');
+    // });
+    //
+
+    //ready()事件
+    // $(document).ready(function(){
+    //     $('input').hover(function(){
+    //         $(this).css('background-color','red');
+    //     },function(){
+    //         $(this).css('background-color','green');
+    //     });
+    // });
+    //
+    $(function(){
+        $('input').hover(function(){
+            $(this).css('background-color','red');
+        },function(){
+            $(this).css('background-color','green');
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第一页</title>
+    <style>
+        body {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="location.href" onclick="fn();">
+<input type="button" value="上一页" onclick="fn1();">
+<input type="button" value="下一页" onclick="fn2();">
+<input type="button" value="go()" onclick="fn3();">
+<script>
+
+    function fn() {
+        //跳转到
+        window.location.href = 'second.html';
+    }
+
+
+    function fn1(){
+        //上一页
+        //链式编程
+        window.history.back();
+    }
+
+    function fn2(){
+        //下一页
+        //链式编程
+        window.history.forward();
+    }
+
+
+    function fn3(){
+        //下一页
+        //链式编程
+        window.history.go(2);
+    }
+
+
+
+</script>
+</body>
+</html>

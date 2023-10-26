@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-on方法</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccccc;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <button>普通按钮</button>
+</div>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //按钮 点击 弹框
+    //简单事件函数 click()
+    //绑定事件 on()
+    // $('button').on('click',function(){
+    //     alert(123);
+    // });
+    //可以同时绑定多个事件
+    // $('button').on({
+    //     'mouseover':function(){
+    //         alert('mouseover');
+    //     },
+    //     'mouseout':function(){
+    //         alert('mouseout');
+    //
+    //     }
+    // });
+
+    //还可以 给 子元素 绑定事件
+    $('div').on('click','button',function(){
+        alert(123);
+    });
+
+
+
+
+
+
+</script>
+</body>
+</html>
