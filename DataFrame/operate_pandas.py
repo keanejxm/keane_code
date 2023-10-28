@@ -22,3 +22,5 @@ for df_index, df_value in df.iterrows():
 
 # dataFrame排序
 df.sort_values(by = ["column"],ascending=True)
+# 使用正则替换
+df = df.apply(lambda x: x.str.replace(r"\s+", "", regex=True))

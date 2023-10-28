@@ -1,0 +1,341 @@
+# -*- encoding:utf-8 -*-
+"""
+@功能:华舆解析模板
+@AUTHOR：Keane
+@文件名：huayu.py
+@时间：2020/12/17  17:33
+"""
+
+import json
+import logging
+
+from lib.templates.appspider_m import Appspider
+from lib.templates.initclass import InitClass
+
+
+class huayuNews(Appspider):
+
+    @staticmethod
+    def get_app_params():
+        url = "http://apps2.newsduan.com/newsyun/forApp/getAllMyOrderByUserId.jspx"
+        headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": "48",
+            "Host": "apps2.newsduan.com",
+            "Connection": "Keep-Alive",
+            "Accept-Encoding": "gzip",
+            "User-Agent": "okhttp/3.8.0"
+        }
+        data = {
+            "appToken": "v963e1609726631299",
+            "userId": "",
+            "isPushType": "1"
+        }
+        method = "post"
+        app_params = InitClass().app_params(url, headers, method, data = data)
+        yield app_params
+
+    @staticmethod
+    def analyze_channel(channelsres):
+        navList = [
+            {
+                'channelid': '600',
+                'channelname': '北京'
+            },
+            {
+                'channelid': '1234',
+                'channelname': '华媒'
+            }
+        ]
+        channelslists = json.loads(channelsres)
+        channelparams = []
+        for channel in channelslists['msg']:
+            channelid = channel['orderId']
+            channelname = channel['orderName']
+            channelparam = InitClass().channel_fields(channelid, channelname)
+            channelparams.append(channelparam)
+        channelparams = channelparams + navList
+        yield channelparams
+
+    @staticmethod
+    def getarticlelistparams(channelsparams):
+        print(channelsparams)
+        articlelistsparams = []
+        for channel in channelsparams:
+            channelid = channel.get("channelid")
+            channelname = channel.get("channelname")
+            channeltype = channel.get("channeltype")
+
+            if channelname == '北京':
+                headers = {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": "59",
+                    "Host": "apps2.newsduan.com",
+                    "Connection": "Keep-Alive",
+                    "Accept-Encoding": "gzip",
+                    "Cookie": "clientlanguage=zh_CN",
+                    "User-Agent": "okhttp/3.8.0",
+                }
+                data = {
+                    "appToken": "v963e1609726631299",
+                    "contentIds": "0",
+                    "cityId": channelid,
+                    "userId": "",
+                }
+                method = 'post'
+                url = "http://apps2.newsduan.com/newsyun/forApp/getContentsByCId.jspx"
+            elif channelname == '华媒':
+                headers = {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": "7",
+                    "Host": "apps2.newsduan.com",
+                    "Connection": "Keep-Alive",
+                    "Accept-Encoding": "gzip",
+                    "User-Agent": "okhttp/3.8.0",
+                }
+                data = {
+                    "userId": "",
+                }
+                method = 'post'
+                url = "http://apps2.newsduan.com/newsyun/forApp/getJxChannelList.jspx"
+            else:
+                headers = {
+                    "Host": "apps2.newsduan.com",
+                    "Connection": "Keep-Alive",
+                    "Accept-Encoding": "gzip",
+                    "Cookie": "clientlanguage=zh_CN",
+                    "User-Agent": "okhttp/3.8.0"
+                }
+                data = {
+                    "orderId": channelid,
+                    "appToken": "v963e1609726631299",
+                    "pageNo": "1",
+                    "channelType": "1",
+                    "contentIds": "0",
+                    "userId": "",
+                }
+                url = "http://apps2.newsduan.com/newsyun/forApp/getOrderContentList.jspx"
+                method = 'get'
+            articlelist_param = InitClass().articlelists_params_fields(url, headers, method, channelname,
+                                                                       channelid = channelid, data = data,
+                                                                       channeltype = channeltype)
+            articlelistsparams.append(articlelist_param)
+        yield articlelistsparams
+
+    @staticmethod
+    def analyze_articlelists(articleslistsres):
+        articlesparams = []
+        for articleslistres in articleslistsres:
+            channelname = articleslistres.get("channelname")
+            channelid = articleslistres.get("channelid")
+            articleslists = articleslistres.get("channelres")
+            channel_type = articleslistres.get("channeltype")
+            try:
+                articleslists = json.loads(articleslists)
+                print(articleslists)
+                if channelname == '华媒':
+                    for articles_arr in articleslists["msg"]:
+                        for articles in articles_arr['listChannelApp']:
+                            topic_fields = InitClass().topic_fields()
+                            articleparam = InitClass().article_list_fields()
+                            # 获取文章列表内的有用信息
+                            article_id = articles["channelId"]
+                            article_title = articles["channelName"]
+                            topic = 1
+                            topic_fields["channelName"] = channelname
+                            topic_fields["channelID"] = channelid
+                            topic_fields["_id"] = article_id
+                            topic_fields["topic"] = topic
+                            topic_fields["title"] = article_title
+                            # 将请求文章必需信息存入
+                            articleparam["articleField"] = topic_fields  # 携带文章采集的数据
+                            articleparam["articleid"] = article_id
+                            articlesparams.append(articleparam)
+                else:
+                    try:
+                        for articles in articleslists["data"]["generalContent"]:
+                            article_fields = InitClass().article_fields()
+                            articleparam = InitClass().article_list_fields()
+                            # 获取文章列表内的有用信息
+                            article_id = articles["contentId"]
+                            article_title = articles["contentTitile"]
+                            article_type = articles["type"]
+                            share_url = articles['contentUrl']
+                            pubtime = InitClass().date_time_stamp(articles["contentDateFormat"])
+                            article_covers = list()
+                            if 'contentTitleImg' in articles.keys():
+                                article_covers.append('http://www.newsduan.com'+articles["contentTitleImg"])
+                            article_fields["articlecovers"] = article_covers
+                            article_fields["channelID"] = channelid
+                            article_fields["channelname"] = channelname
+                            article_fields["channeltype"] = channel_type
+                            article_fields["workerid"] = article_id
+                            article_fields["title"] = article_title
+                            article_fields["contentType"] = article_type
+                            article_fields["url"] = share_url
+                            article_fields["pubtime"] = pubtime
+                            # 将请求文章必需信息存入
+                            articleparam["articleField"] = article_fields  # 携带文章采集的数据
+                            articleparam["articleid"] = article_id
+                            articlesparams.append(articleparam)
+                    except Exception as e:
+                        logging.info(f"提取文章列表信息失败{e}")
+            except Exception as e:
+                logging.info(f"解析文章列表{e}")
+        yield articlesparams
+
+    @staticmethod
+    def getarticleparams(articles):
+        articleparams = []
+        for article in articles:
+            articleid = article.get("articleid")
+            article_field = article.get("articleField")
+            topic = article_field.get("topic")
+            if topic == 1:
+                url = "http://apps2.newsduan.com/newsyun/forApp/getContentListByChannelId.jspx"
+                headers = {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": "86",
+                    "Host": "apps2.newsduan.com",
+                    "Connection": "Keep-Alive",
+                    "Accept-Encoding": "gzip",
+                    "Cookie": "clientlanguage=zh_CN",
+                    "User-Agent": "okhttp/3.8.0"
+                }
+                data = {
+                    "versionId": "3",
+                    "pageIndex": "1",
+                    "appToken": "v963e1609726631299",
+                    "pageSize": "15",
+                    "userId": "",
+                    "channelId": articleid,
+                }
+            else:
+                url = "http://apps2.newsduan.com/newsyun/forApp/getContentByContentId.jspx"
+                headers = {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Length": "64",
+                    "Host": "apps2.newsduan.com",
+                    "Connection": "Keep-Alive",
+                    "Accept-Encoding": "gzip",
+                    "Cookie": "clientlanguage=zh_CN",
+                    "User-Agent": "okhttp/3.8.0",
+                }
+                data = {
+                    "versionId": "3",
+                    "appToken": "v963e1609726631299",
+                    "contentId": articleid,
+                    "userId": "",
+                }
+            method = 'post'
+            articleparam = InitClass().article_params_fields(url, headers, method, data = data,
+                                                             article_field = article_field)
+            articleparams.append(articleparam)
+        yield articleparams
+
+    def analyzearticle(self, articleres):
+        print(articleres)
+        num = 0
+        for article in articleres:
+            fields = article.get("articleField")
+            topic = fields.get("topic")
+            channelname = article.get("channelname")
+            channelid = article.get("channelid")
+            channel_type = article.get("channeltype")
+            if topic:
+                content_s = json.loads(
+                    json.dumps(json.loads(article.get("articleres"), strict = False), indent = 4, ensure_ascii = False))
+                print(content_s)
+                articlesparams = []
+                for articles in content_s["msg"]:
+                    article_fields = InitClass().article_fields()
+                    articleparam = InitClass().article_list_fields()
+                    # 获取文章列表内的有用信息
+                    article_id = articles["contentId"]
+                    article_title = articles["contentTitile"]
+                    article_type = articles["type"]
+                    share_url = articles['contentUrl']
+                    pubtime = InitClass().date_time_stamp(articles["contentDateFormat"])
+                    article_covers = list()
+                    if 'contentTitleImg' in articles.keys():
+                        article_covers.append('http://www.newsduan.com'+articles["contentTitleImg"])
+                    article_fields["articlecovers"] = article_covers
+                    article_fields["channelID"] = channelid
+                    article_fields["channelname"] = fields.get('channelName')
+                    article_fields["channeltype"] = channel_type
+                    article_fields["workerid"] = article_id
+                    article_fields["title"] = article_title
+                    article_fields["contentType"] = article_type
+                    article_fields["url"] = share_url
+                    article_fields["pubtime"] = pubtime
+                    article_fields["specialtopic"] = topic
+                    article_fields["topicid"] = fields.get('_id')
+                    article_fields["topicTitle"] = fields.get('title')
+                    # 将请求文章必需信息存入
+                    articleparam["articleField"] = article_fields  # 携带文章采集的数据
+                    articleparam["articleid"] = article_id
+                    articlesparams.append(articleparam)
+                aaaa = self.getarticleparams(articlesparams)
+                bbbb= self.getarticlehtml(aaaa.__next__())
+                self.analyzearticle(bbbb.__next__())
+            else:
+                try:
+                    content_s = json.loads(
+                        json.dumps(json.loads(article.get("articleres"), strict=False), indent=4, ensure_ascii=False))
+                    print(content_s)
+                    worker_id = content_s["msg"][0]["contentId"]
+                    article_title = content_s["msg"][0]["contentTitile"]
+                    author = content_s["msg"][0]["contentAuthor"]
+                    source = content_s["msg"][0]["contentOrigin"]
+                    content = content_s["msg"][0]["contentText"]
+                    commentnum = content_s["msg"][0]["commentCount"]
+                    readnum = content_s["msg"][0]["viewCount"]
+                    url = content_s["msg"][0]["contentUrl"]
+                    try:
+                        videocovers = list()
+                        videos = list()
+                        videoss = content_s["msg"][0]["contentVideo"]
+                        if videoss:
+                            videocovers.append(content_s["msg"][0]["videoBgImg"])
+                            videos.append(videoss)
+                        fields["videos"] = videos
+                        fields["videocover"] = videocovers
+                    except Exception as e:
+                        logging.info(f"此新闻无视频{e}")
+                    try:
+                        imagess = InitClass().get_images(content)
+                        img_list = list()
+                        for img in imagess:
+                            img_list.append('http://www.newsduan.com'+img)
+                        fields["images"] = img_list
+                    except Exception as e:
+                        self.logger.info(f"获取文章内图片失败{e}")
+                    fields["appname"] = self.newsname
+                    fields["url"] = url
+                    fields["commentnum"] = commentnum
+                    fields["readnum"] = readnum
+                    fields["title"] = article_title
+                    fields["workerid"] = worker_id
+                    fields["content"] = content
+                    fields["source"] = source
+                    fields["author"] = author
+                    print(json.dumps(fields, indent=4, ensure_ascii=False))
+                except Exception as e:
+                    num += 1
+                    logging.info(f"错误数量{num},{e}")
+
+    def run(self):
+        appparams = self.get_app_params()
+        channelsres = self.getchannels(appparams.__next__())
+        channelsparams = self.analyze_channel(channelsres.__next__())
+        articlelistparames = self.getarticlelistparams(channelsparams.__next__())
+        articleslistsres = self.getarticlelists(articlelistparames.__next__())
+        articles = self.analyze_articlelists(articleslistsres.__next__())
+        articleparams = self.getarticleparams(articles.__next__())
+        articlesres = self.getarticlehtml(articleparams.__next__())
+        self.analyzearticle(articlesres.__next__())
+
+
+if __name__ == '__main__':
+    appspider = huayuNews("华舆")
+    appspider.run()

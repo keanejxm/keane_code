@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="box" style="width: 600px;height: 600px;border: 1px black solid;">
+    <!-- float： 浮动
+            脱离正常文档流
+            根据left/right来确定最终位置  依据父元素左边框有边框
+            元素设置浮动之后，注意一行放不下，会另起一行-->
+    <!--    float示例-->
+    <div class="div1" style="width: 200px;height: 200px;background: red;float: left"></div>
+    <div class="div2" style="width: 200px;height: 200px;background: green;float: right"></div>
+    <div class="div4"></div>
+    <div class="div4"></div>
+</div>
+<!--border:边框   -->
+<div class="div3" style="border: 1px red solid;width: 1000px;height: 1000px">
+    <ul>
+        <li>第一行</li>
+        <li>第二行</li>
+        <li>第三行</li>
+    </ul>
+    <img src="../pics/w.jpg" alt="">
+    <div style="float: right">
+        这个文字应该在图片的右边
+    </div>
+</div>
+<!--未指定浮动-->
+<div style="width: 200px;height: 200px;background: blue"></div>
+<div style="width: 200px;height: 200px;background: yellow"></div>
+
+<!--relative:相对位置    padding:内边距 position:位置-->
+<div style="width: 500px;height: 600px;border: 1px solid black;padding: 5px;position: relative">
+    <div class="list"
+         style="width: 200px;height: 40px;position: absolute;right: 110px;bottom: 70px;border: 1px solid red">
+        <!--        border-radius的意思为“边框圆角;圆角半径”-->
+        <div class="div1"
+             style="float: left;width: 20px;height: 20px;background: #13c2c2;border-radius: 50%;text-align: center;line-height: 20px;margin-left: 10px">
+            1
+        </div>
+        <div class="div1"
+             style="float: left;width: 20px;height: 20px;background: #13c2c2;border-radius: 50%;text-align: center;line-height: 20px;margin-left: 10px">
+            2
+        </div>
+        <div class="div1"
+             style="float: left;width: 20px;height: 20px;background: #13c2c2;border-radius: 50%;text-align: center;line-height: 20px;margin-left: 10px">
+            3
+        </div>
+        <div class="div1"
+             style="float: left;width: 20px;height: 20px;background: #13c2c2;border-radius: 50%;text-align: center;line-height: 20px;margin-left: 10px">
+            4
+        </div>
+    </div>
+</div>
+<!--position:fixed:占据页面位置，窗口滑动时不会动-->
+<div style="width: 80px;height: 80px;background: yellow;border-radius: 50%;text-align:center;line-height: 80px;position: fixed;right: 30px;bottom: 100px">
+    回到顶部
+</div>
+<!--position-->
+<div class="box" style="width: 500px;height: 500px;border: 1px solid #cccccc;margin-left: 100px;position: relative">
+    <div class="inbox"
+         style="width: 300px;height: 300px;border: 1px solid #cccccc;margin-left: 50px;position: relative">
+        <div class="div1"
+             style="width: 100px;height: 100px;background: red;position: absolute;left: 200px;top: 200px"></div>
+        <div class="div2" style="width: 100px;height: 100px;background: green"></div>
+    </div>
+</div>
+<!--position-->
+<div class="box" style="width: 500px;height: 500px;border: 1px solid #cccccc;margin-left: 100px">
+    <div class="div1" style="width: 100px;height: 100px;background: red;position: relative;left:100px;top:100px"></div>
+    <div class="div2" style="width: 100px;height: 100px;background: green"></div>
+
+</div>
+<!--雪碧图-->
+<div style="width: 84px;height: 29px;background: url('../pics/spirite.png') no-repeat -142px -314px;text-align: center;line-height: 29px">
+    按钮
+</div>
+</body>
+</html>

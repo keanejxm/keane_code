@@ -63,6 +63,12 @@ class OperatePdf:
         with open(outpath, 'wb') as output_file:
             pdf_merger.write(output_file)
 
+    def get_content(self,model_path):
+        pdf_stream = open(model_path, "rb")
+        pdf_reader = PyPDF2.PdfReader(pdf_stream, strict=True)
+        for page_num,page in enumerate(pdf_reader.pages):
+            print(page.extractText())
+
 
 if __name__ == '__main__':
     obj = OperatePdf()
@@ -71,24 +77,27 @@ if __name__ == '__main__':
     # output_path = "aaaa.pdf"
     # obj.combine_pdf(pdfs,output_path)
     # model_file_path = "基金交易类业务申请表_old1.pdf"
-    model_file_path = "源文件.pdf"
-    # obj.get_pdf_form(model_file_path)
-    output_file_path = "基金交易类业务申请表_g11.pdf"
-    data_dict = {
-        'fill_28': "1111111111",
-        'fill_1': "建信尊享偏债两年定开家族专享7号",
-        'fill_3': "10,000,000.00",
-        '元': '1',
-        '拾': '2',
-        '佰': '3',
-        '仟': '4',
-        '万': '5',
-        '拾万': '6',
-        '佰万': '7',
-        '仟万': '8',
-        '亿': '9',
-        '拾亿': '1',
-        '佰亿': '2',
-        '仟亿': '3'
-    }
-    obj.append_pdf_form(model_file_path, output_file_path, data_dict)
+    # model_file_path = "源文件.pdf"
+    # # obj.get_pdf_form(model_file_path)
+    # output_file_path = "基金交易类业务申请表_g11.pdf"
+    # data_dict = {
+    #     'fill_28': "1111111111",
+    #     'fill_1': "建信尊享偏债两年定开家族专享7号",
+    #     'fill_3': "10,000,000.00",
+    #     '元': '1',
+    #     '拾': '2',
+    #     '佰': '3',
+    #     '仟': '4',
+    #     '万': '5',
+    #     '拾万': '6',
+    #     '佰万': '7',
+    #     '仟万': '8',
+    #     '亿': '9',
+    #     '拾亿': '1',
+    #     '佰亿': '2',
+    #     '仟亿': '3'
+    # }
+    # obj.append_pdf_form(model_file_path, output_file_path, data_dict)
+    mod_path = "document (1).pdf"
+    obj = OperatePdf()
+    obj.get_content(mod_path)
