@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-遍历循环</title>
+</head>
+<body>
+<ul>
+    <li>我是li01</li>
+    <li>我是li02</li>
+    <li>我是li03</li>
+    <li>我是li04</li>
+    <li>我是li05</li>
+</ul>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //隐式迭代
+    // $('li').css('color','red');
+    //输出每个li内容
+    // console.log($('li').html());
+
+    //for(){} jq可以使用
+
+    //each() map()
+    //each每一个
+    //参数一：index 下标
+    //参数二：ele 标签 dom对象
+    //每个标签设置背景颜色 红绿蓝黄紫
+    var arr = ['red','green','blue','yellow','purple'];
+
+    $('li').each(function(index){
+        //this-dom对象
+        // console.log($(this).html());
+        // console.log(index,ele);
+        // console.log(ele);
+        // console.log($(ele).html());
+        //jq 设置背景颜色
+        $(this).css('background-color',arr[index]);
+    });
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

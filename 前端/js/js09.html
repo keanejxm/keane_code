@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-函数</title>
+</head>
+<body>
+
+<script>
+    /*
+    函数声明 调用 语法格式
+    参数 形参 实参  传参 一一对应 位置个数
+    return 返回 返回值数据类型可以多种
+    作用域 函数作用域-局部变量
+        - 一定注意要var关键字，如果没有，提升为全局变量
+
+
+     */
+
+    //函数
+    function fn1(name,age) {
+        console.log(123);
+        console.log(name,age);
+        return;
+    }
+
+    // fn1('华磊',18);
+    // console.log(fn1());//undefined
+
+    //匿名函数
+    // var fn2 = function () {
+    //     console.log('我是匿名函数');
+    // };
+    // fn2();
+
+
+    // filter()
+    // map()
+    // reduce()
+
+
+    //注意：
+    function fn2() {
+        age = 18;//函数内部声明变量，如果没有var，此时变量会提升为全局变量
+
+    }
+    fn2();
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

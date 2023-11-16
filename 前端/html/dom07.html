@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM-</title>
+</head>
+<body>
+行数：<input type="text" name="row">
+列数：<input type="text" name="col">
+<input type="button" value="生成表格" onclick="fn();">
+<script>
+    function fn() {
+        //点击按钮，获取 两个框内的数值，生成表格
+        var rowvalue = document.getElementsByName('row')[0].value;
+        var colvalue = document.getElementsByName('col')[0].value;
+        console.log(rowvalue,colvalue);
+        //
+        var row = Number(rowvalue);//3
+        var col = Number(colvalue);
+
+        //生成表格
+        //table tr td
+        var table = document.createElement('table');
+        table.border = '1';
+        //创建 tr
+        for (var i = 0; i < row; i++) {
+            var tr = document.createElement('tr');
+            //创建 td
+            for (var j = 0; j < col; j++) {
+                var td = document.createElement('td');
+                //添加内容
+                // var txt = document.createTextNode('赶紧下课把');
+                // td.appendChild(txt);
+                td.innerHTML = '赶紧下课吧';
+                //添加 到 tr
+                tr.appendChild(td);
+            }
+            //把tr添加到 table
+            table.appendChild(tr);
+        }
+        //table 添加到 body
+        document.body.appendChild(table);
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-事件this</title>
+</head>
+<body>
+<input type="button" value="按钮" onclick="fn(this);">
+<script>
+    //js中this 如果出现在事件中，指的是 事件源
+    // var btn = document.getElementsByTagName('input')[0];
+    // btn.onclick = function(){
+    //     // console.log(this.value);
+    //     console.log(this);
+    // }
+
+    //事件书写方式一：行内标签
+    //注意：this需要通过参数传递才可使用。
+    function fn(ele) {
+        console.log(ele);
+    }
+</script>
+
+</body>
+</html>

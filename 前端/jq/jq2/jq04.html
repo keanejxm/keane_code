@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-事件对象</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccccc;
+        }
+        body {
+            height: 2000px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button>普通按钮</button>
+</div>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<p>我是p标签</p>
+<a href="javascript:void(0)">点我送国旗</a>
+<script src="js/jquery-1.11.1.js"></script>
+<script>
+    //div jq 点击事件
+    $('div').click(function(){
+        alert('div');
+    });
+
+    //btn 点击事件
+    $('button').click(function(e){
+        alert('button');
+        e.stopPropagation();//
+    });
+
+    //阻止默认行为
+    //form submit
+    //a标签 超链接
+    // $('a').click(function(e){
+    //     alert('这次不会跳转呦！');
+    //     e.preventDefault();
+    // });
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

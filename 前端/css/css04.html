@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css-浮动</title>
+    <style>
+        .box {
+            width: 600px;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+        .div1,.div2 {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        .div1 {
+            /*float浮动：left/right
+                - 脱离正常文档流
+                - 根据left/right来确定最终位置  依据父元素左边框 右边框
+                - 元素设置浮动之后，注意一行放不下，会另起一行
+            */
+            float: left;
+        }
+        .div2 {
+            background-color: green;
+            float: right;
+        }
+       .div3,.div4 {
+           width: 200px;
+            height: 200px;
+            background-color: blue;
+       }
+        .div4 {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="div1"></div>
+    <div class="div2"></div>
+</div>
+<div class="div3"></div>
+<div class="div4"></div>
+</body>
+</html>

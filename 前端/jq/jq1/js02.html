@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js-事件对象</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccccc;
+        }
+
+    </style>
+</head>
+<body>
+<input type="button" value="按钮一">
+<div>
+    <!--普通标签 innerHTML-->
+    <button>按钮</button>
+</div>
+<script>
+    //点击按钮，输出 标签内容
+    //两种方式
+    var btn = document.getElementsByTagName('button')[0];
+    btn.onclick = function(event){
+        // console.log(this.innerHTML);
+        // console.log(event);//事件对象  包含该事件相关信息
+        // console.log(event.type);
+        // console.log(event.target);
+        // console.log(event.clientX);
+        // console.log(event.clientY);
+        alert('btn');
+        event.stopPropagation();//阻止冒泡  IE:cancelBubble
+    }
+
+    //实现div点击
+    //事件冒泡：事件传播方式 顺序
+    //阻止冒泡
+    document.getElementsByTagName('div')[0].onclick = function(){
+        alert('div');
+    }
+
+
+
+
+</script>
+</body>
+</html>

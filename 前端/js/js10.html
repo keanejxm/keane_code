@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //
+    console.log(123);
+    console.log(456);
+    /*
+    计时器、定时器：
+    //setTimeout() 延迟一定时间之后，执行某个函数程序
+    /*
+    参数一：函数程序  函数名 匿名函数
+    参数二：时间 毫秒
+     */
+    // function fn(){
+    //     console.log(789);
+    // }
+    // window.setTimeout(fn,2000);
+
+    //
+    /*
+    语法规范 同上 setTimeout()
+    setInterval() 每隔一定时间，就执行一次函数程序。轮询 重复 循环
+     */
+    // window.setInterval(fn,2000);
+    // function fn(){
+    //     console.log(789);
+    // }
+
+    //document.write()
+    /*
+    页面中打印输出
+        我今年n岁了。 每隔一秒长一岁
+     */
+    var timer = window.setInterval(fn,10);
+    var num = 1;
+    function fn() {
+        document.write('我今年' + num + '岁了。<br>');
+        num++;
+        if (num === 81) {
+            alert('升天了');
+            window.clearInterval(timer);
+        }
+    }
+
+    /*
+    停止定时器： clearInterval(定时器id)
+     */
+
+
+</script>
+</body>
+</html>
