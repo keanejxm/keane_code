@@ -27,8 +27,11 @@ def task(num):
 
 
 if __name__ == '__main__':
+    print(threading.enumerate())
+    print(threading.active_count())
     for i in range(5):
         t = threading.Thread(target=task, args=(i,))
         t.start()
+    # 返回当前存活的threading.Thread的数量
     print(threading.active_count())
     print(threading.current_thread())
