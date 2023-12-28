@@ -70,5 +70,5 @@ def translate_num(num:str, result):
     return result
 
 
-result1 = dict()
-print(translate_num("100", result1))
+a = "12345哈哈"
+print(a.isdigit())

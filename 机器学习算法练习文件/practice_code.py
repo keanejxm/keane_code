@@ -6,3 +6,7 @@
 :time  2023/11/16 10:39
 :desc  
 """
+import random
+
+print(random.randint(0,5))
+print(random.random()+0.5)
