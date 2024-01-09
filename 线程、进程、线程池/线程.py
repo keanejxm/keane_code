@@ -8,6 +8,8 @@
 """
 import time
 import threading
+# from multiprocessing import cpu_count
+
 
 """
 global interpreter lock -- 全局解释器锁
@@ -19,14 +21,36 @@ CPython 解释器所采用的一种机制，它确保同一时刻只有一个线
 据信克服这种性能问题的措施将导致实现变得更复杂，从而更难以维护。"""
 # 同时运行多个 I/O 密集型任务，
 
-
+"""
+threading.settrace(func)
+threading.settrace_all_threads(func)
+threading.gettrace()
+threading.setprofile(func)
+threading.setprofile_all_threads
+threading.getprofile()
+threading.stack_size([size])
+threading.TIMEOUT_MAX
+threading.local
+"""
 
 def task(num):
     time.sleep(4)
     print("Task %d is running." % num)
+    print(threading.current_thread())
+    # 线程标识符
+    print(threading.get_ident())
+    # 线程的id
+    print(threading.get_native_id())
+    # 返回主线程Thread对象
+    print(threading.main_thread())
+
+# 爬虫： 下载数据----解析数据
+class SubThread(threading.Thread):
+    pass
 
 
 if __name__ == '__main__':
+    # 返回当前存活的的Thread对象列表
     print(threading.enumerate())
     print(threading.active_count())
     for i in range(5):
