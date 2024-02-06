@@ -34,9 +34,10 @@ length_map = {
     "12": "仟亿",
 }
 a = dict()
-for key,value in length_map.items():
+for key, value in length_map.items():
     a[value] = ""
 print(a)
+
 
 # def translate_number(num, result:str):
 #     if not isinstance(num, list):
@@ -56,7 +57,7 @@ print(a)
 #     return result
 
 
-def translate_num(num:str, result):
+def translate_num(num: str, result):
     if not isinstance(num, list):
         num = list(str(num))
     num_length = len(num)
@@ -67,8 +68,15 @@ def translate_num(num:str, result):
     num.remove(num_head)
     if num:
         result = translate_num(num, result)
-    return result
 
 
-a = "12345哈哈"
-print(a.isdigit())
+a = round(23.453, 2)
+b = 345
+print(a + b)
+
+from decimal import Decimal
+
+a = Decimal(5.45) / Decimal(5)
+b = float(a)
+c = round(a, 4)
+print(a)
