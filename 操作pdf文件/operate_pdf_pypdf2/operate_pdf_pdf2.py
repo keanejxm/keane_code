@@ -70,6 +70,30 @@ class OperatePdf:
             print(page.extractText())
 
 
+    def add_page_num(self,file_path):
+        pdf_file = open(file_path,"rb")
+        pdf_reader = PyPDF2.PdfReader(pdf_file)
+        # 获取总页数
+        total_pages = pdf_reader.numPages
+
+        pdf_writer = PyPDF2.PdfFileWriter()
+        for page_num in range(total_pages):
+            page = pdf_reader.getPage(page_num)
+            page.merge_page(page.createBlankPage(width=page.mediaBox.getWidth(),height=page.mediaBox.getHeight()))
+            page.merge_page(page)
+            page.merge_page(page)
+            page.merge_page(page)
+            page.merge_page(page)
+            page.merge_page(page)
+            pdf_writer.addPage(page)
+        output_pdf = open("output.pdf","wb")
+        pdf_writer.write(output_pdf)
+        output_pdf.close()
+        pdf_file.close()
+
+
+
+
 if __name__ == '__main__':
     obj = OperatePdf()
     # pdfs =["基金交易类业务申请表_g11.pdf","基金交易类业务申请表_g12.pdf","基金交易类业务申请表_g13.pdf"]
@@ -98,6 +122,6 @@ if __name__ == '__main__':
     #     '仟亿': '3'
     # }
     # obj.append_pdf_form(model_file_path, output_file_path, data_dict)
-    mod_path = "document (1).pdf"
-    obj = OperatePdf()
+    # mod_path = "靳晓明车上人员.pdf"
+    mod_path = "document.pdf"
     obj.get_content(mod_path)

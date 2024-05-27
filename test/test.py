@@ -70,13 +70,55 @@ def translate_num(num: str, result):
         result = translate_num(num, result)
 
 
-a = round(23.453, 2)
-b = 345
-print(a + b)
+# a = round(23.453, 2)
+# b = 345
+# print(a + b)
+#
+# from decimal import Decimal
+#
+# a = Decimal(5.45) / Decimal(5)
+# b = float(a)
+# c = round(a, 4)
+# print(a)
 
-from decimal import Decimal
+import win32com.client
+import datetime
 
-a = Decimal(5.45) / Decimal(5)
-b = float(a)
-c = round(a, 4)
-print(a)
+def create_task_schedule(task_name, program_path, start_time, daily=True, trigger_type='DAILY'):
+
+    # 创建任务执行器对象
+    task_scheduler = win32com.client.Dispatch('Schedule.Service')
+    task_scheduler.Connect()
+
+    # 创建任务对象
+    task = task_scheduler.CreateTask(0)
+
+    # 定义任务的设置
+    settings = task.Settings
+    settings.Enabled = True
+    settings.AllowDemandStart = True
+    settings.StartWhenAvailable = True
+    settings.Hidden = False
+
+    # 定义触发器 - 在指定的时间运行
+    trigger = task.Triggers.Create(win32com.client.constants.TRIGGER_TYPE_ONESTIME)
+    trigger.Repetition.Interval = 'PT0S'
+    trigger.ExecutionTime = datetime.datetime(2023, 4, 15, 12, 0, 0)  # 设置执行时间
+
+    # 定义操作 - 执行某个程序
+    action = task.Actions.Create(win32com.client.constants.TASK_ACTION_EXEC)
+    action.Path = 'python.exe'  # 指定Python解释器路径
+    action.Arguments = r'E:\keane_python\github\keane_code\test\test1.py'  # 指定要执行的Python脚本
+
+    # 保存任务
+    task_folder = task_scheduler.GetFolder('\\')
+    task_folder.RegisterTaskDefinition('My Python Task', task, win32com.client.constants.TASK_CREATE_OR_UPDATE, '', '',
+                                       0)
+
+
+# 使用示例
+if __name__ == '__main__':
+    task_name = 'My Python Script Task'
+    program_path = r'E:\keane_python\github\keane_code\test\test1.py'
+    start_time = '2024-05-09 14:47:00'  # 日期时间格式
+    create_task_schedule(task_name, program_path, start_time)
