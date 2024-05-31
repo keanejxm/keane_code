@@ -6,6 +6,7 @@
 :time  2023/3/15 14:41
 :desc  
 """
+import re
 import pandas as pd
 
 # 筛选
@@ -21,6 +22,8 @@ for df_index, df_value in df.iterrows():
     df.loc[df['is_dup'] == True, "is_dup"] = "是"
 
 # dataFrame排序
-df.sort_values(by = ["column"],ascending=True)
+df.sort_values(by=["column"], ascending=True)
 # 使用正则替换
 df = df.apply(lambda x: x.str.replace(r"\s+", "", regex=True))
+# 替换掉正文括号
+df = df.apply(lambda x: re.sub(r"([（）])", lambda x: chr(ord(x.group(1)) - 65248), x))
