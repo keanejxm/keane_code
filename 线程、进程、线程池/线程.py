@@ -6,8 +6,11 @@
 :time  2023/12/28 17:43
 :desc  
 """
+import concurrent.futures
+import queue
 import time
 import threading
+
 # from multiprocessing import cpu_count
 
 
@@ -33,29 +36,68 @@ threading.TIMEOUT_MAX
 threading.local
 """
 
-def task(num):
-    time.sleep(4)
-    print("Task %d is running." % num)
-    print(threading.current_thread())
-    # 线程标识符
-    print(threading.get_ident())
-    # 线程的id
-    print(threading.get_native_id())
-    # 返回主线程Thread对象
-    print(threading.main_thread())
 
-# 爬虫： 下载数据----解析数据
-class SubThread(threading.Thread):
-    pass
+class ThreadPoolPractice:
+    def task(self, num):
+        time.sleep(4)
+        print("Task %d is running." % num)
+        print(threading.current_thread())
+        # 线程标识符
+        print(threading.get_ident())
+        # 线程的id
+        print(threading.get_native_id())
+        # 返回主线程Thread对象
+        print(threading.main_thread())
+
+    def run_thread(self):
+        # 返回当前存活的的Thread对象列表
+        print(threading.enumerate())
+        print(threading.active_count())
+        for i in range(5):
+            t = threading.Thread(target=self.task, args=(i,))
+            t.start()
+        # 返回当前存活的threading.Thread的数量
+        print(threading.active_count())
+        print(threading.current_thread())
+
+    # 爬虫： 下载数据----解析数据
+    def thread_pool(self, func, generator, generator_kwargs=None):
+        class BoundedThreadPoolExecutor(concurrent.futures.ThreadPoolExecutor):
+            def __init__(self, max_worker=None, thread_name_prefix=""):
+                super().__init__(max_worker, thread_name_prefix)
+                self._work_queue = queue.Queue(self._max_workers * 2)
+
+        with BoundedThreadPoolExecutor(1) as pool:
+            future_tasks = list()
+            for i, kwargs in enumerate(generator(**generator_kwargs)):
+                future = pool.submit(func, **kwargs)
+                future.add_done_callback(fn=self.done_callback)
+                future_tasks.append(future)
+            concurrent.futures.wait(future_tasks)
+
+    def done_callback(self,future):
+        pass
+
+    def test(self, aa, bb):
+        print(aa)
+        print(bb)
+
+    def run_thread_pool(self):
+        def general_task():
+            for i in range(4):
+                yield dict(
+                    aa=i,
+                    bb="a" * i
+                )
+
+        self.thread_pool(
+            func=self.test,
+            generator=general_task,
+            generator_kwargs=dict()
+        )
 
 
 if __name__ == '__main__':
-    # 返回当前存活的的Thread对象列表
-    print(threading.enumerate())
-    print(threading.active_count())
-    for i in range(5):
-        t = threading.Thread(target=task, args=(i,))
-        t.start()
-    # 返回当前存活的threading.Thread的数量
-    print(threading.active_count())
-    print(threading.current_thread())
+    obj = ThreadPoolPractice()
+
+    obj.run_thread_pool()

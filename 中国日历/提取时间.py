@@ -7,15 +7,25 @@
 :desc  
 """
 import re
+
+
 def extract_date(text):
     # 正则表达式匹配多种日期格式
-    pattern = r'(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})'
-    match = re.search(pattern, text)
-    if match:
-        year, month, day = match.groups()
-        return {'year': year, 'month': month, 'day': day}
+    pattern1 = r'(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})'
+    pattern2 = r'(\d{4})[-\/](\d{1,2})'
+    patterns = {3:pattern1, 2:pattern2}
+    for pat_key,pattern in patterns.items():
+        match = re.search(pattern, text)
+        if match and pat_key==3:
+            year, month, day = match.groups()
+            return {'year': year, 'month': month, 'day': day}
+        elif match and pat_key==2:
+            year,month = match.groups()
+            return {'year': year, 'month': month}
     else:
         return None
 
-a = "2024-5-4 12:00:00"
+
+# a = "2024-5-4 12:00:00"
+a = "2024年5月"
 print(extract_date(a))
