@@ -12,7 +12,8 @@ import re
 def extract_date(text):
     # 正则表达式匹配多种日期格式
     pattern1 = r'(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})'
-    pattern2 = r'(\d{4})[-\/](\d{1,2})'
+    # pattern2 = r'(\d{4})[-\/](\d{1,2})'
+    pattern2 = r'(\d{4})[-\/年](\d{1,2})月'
     patterns = {3:pattern1, 2:pattern2}
     for pat_key,pattern in patterns.items():
         match = re.search(pattern, text)
