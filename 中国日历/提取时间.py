@@ -28,5 +28,5 @@ def extract_date(text):
 
 
 # a = "2024-5-4 12:00:00"
-a = "2024年5月"
+a = "2024-05-04 8:00:00"
 print(extract_date(a))
