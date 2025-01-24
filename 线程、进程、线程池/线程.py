@@ -99,5 +99,4 @@ class ThreadPoolPractice:
 
 if __name__ == '__main__':
     obj = ThreadPoolPractice()
-
     obj.run_thread_pool()

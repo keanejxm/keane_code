@@ -8,7 +8,6 @@
 """
 import re
 
-
 def extract_date(text):
     # 正则表达式匹配多种日期格式
     pattern1 = r'(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})'
