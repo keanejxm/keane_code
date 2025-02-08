@@ -29,10 +29,14 @@ import time
 # print(b)
 import cv2
 
-img1 = cv2.imread("01.webp")
-
-cv2.imshow("img1",img1)
+img1 = cv2.imread(r"E:\keane_python\github\keane_code\A存放测试代码的文件\户型图.jpg")
+cv2.imshow("img1", img1)
+flip = cv2.flip(img1, 1)
+cv2.imshow("img2", flip)
 cv2.waitKey()
+
+# cv2.imshow("img1",img1)
+# cv2.waitKey()
 cv2.destroyAllWindows()
 
 
