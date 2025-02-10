@@ -17,7 +17,7 @@ for i in range(12):
         "tn": "reserved_all_res_tn",
         "type": "json",
         "resource_id": "52109",
-        "query": f"2024年{i+1}月",
+        "query": f"2025年{i+1}月",
         "apiType": "yearMonthData",
         "cb": "jsonp_1716539518418_58850",
     }
