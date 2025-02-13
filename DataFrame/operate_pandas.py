@@ -7,10 +7,15 @@
 :desc  
 """
 import re
+
+import numpy as np
 import pandas as pd
 
 # 筛选
 df = pd.read_excel("")
+# 去重，查询某列中数据
+df.drop_duplicates()# dataFrame
+df.nunique()# :np.array
 # 筛选出某列不包含关键字的数据
 res_df1 = df[~df["账套全称"].str.contains("阳光", na=True)]
 # 筛选出某列包含关键字的数据
