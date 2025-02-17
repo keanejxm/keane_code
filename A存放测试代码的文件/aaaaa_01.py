@@ -6,6 +6,7 @@
 :time  2025/1/26 13:54
 :desc  
 """
+import math
 import os.path
 
 import numpy as np
@@ -22,21 +23,6 @@ import sklearn.preprocessing as sp
 import sklearn.tree as st
 import sklearn.ensemble as se
 import sklearn.datasets as ds
+import sklearn.svm as svm
 
-x = np.array([[3, 1], [2, 5], [1, 8], [6, 4], [5, 2], [3, 5], [4, 7], [4, -1]])
-y = np.array([0, 1, 1, 0, 0, 1, 1, 0])
-
-# 构建模型
-model = lr.LogisticRegression()
-# 训练模型
-model.fit(x, y)
-
-# 预测
-pred_y = model.predict(np.array([[3, 9], [6, 1]]))
-print(pred_y)
-
-a = x[:, 0]
-b = x[:, 1]
-
-plt.scatter(x[:, 0], x[:, 1])
-plt.show()
+# 支持向量机
