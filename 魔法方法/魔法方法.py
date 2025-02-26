@@ -40,4 +40,9 @@ class MyDataset(Dataset):
 transform = Normalize(mean=[127.5], std=[127.5],data_format='CHW')
 train_dataset = MyDataset(r'E:\keane_data\mnist\train',r"E:\keane_data\mnist\train\label.txt", transform=transform)
 
-print(train_dataset[0])
+train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+for batch_id,data in enumerate(train_loader()):
+    images, labels = data
+    print("batch_id: {}, 训练数据shape: {}, 标签数据shape: {}".format(batch_id, images.shape, labels.shape))
+    break
+
