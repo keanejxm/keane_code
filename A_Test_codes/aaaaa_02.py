@@ -8,6 +8,8 @@
 """
 import pandas as pd
 
-df = pd.DataFrame([[1,2,3,4],[5,6,7,8],[9,10,11,12]],columns=['A','B','C','D'])
-df.sort_values('A',ascending=True,inplace=True)
+df = pd.DataFrame([[2,"14000",3,4],[1,"1750",7,8]],columns=['A','B','C','D'])
+df.sort_values(['A','B'],ascending=[True,True],inplace=True)
 print(df)
+
+print(sorted(["14000","1750"],reverse=True))
