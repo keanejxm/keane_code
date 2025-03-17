@@ -11,6 +11,7 @@ import json
 import requests
 
 calendar_data = dict()
+data_n = dict()
 for i in range(12):
     url = "https://opendata.baidu.com/data/inner"
     data = {
@@ -31,6 +32,10 @@ for i in range(12):
         year = almanac["year"]
         month = almanac["month"]
         day = almanac["day"]
+        avoid = almanac["avoid"]
+        if "结婚" in avoid:
+            data_n[f"{year}/{month}/{day}"]= avoid
+
         # 节假日
         if 'festivalList' in almanac:
             festival_list = almanac["festivalList"]
@@ -67,7 +72,7 @@ for i in range(12):
             calendar_data[year][month] = dict()
             calendar_data[year][month][day] = dict(year=year, month=month, day=day, festival=festival_list, status=status,
                                                    isWork=is_work, week=week)
-
+print(data_n)
 with open("中国日历.json","w",encoding="utf8") as w:
     w.write(json.dumps(calendar_data,ensure_ascii=False))
 
