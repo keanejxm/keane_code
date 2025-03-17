@@ -9,7 +9,6 @@
 import pandas as pd
 
 df = pd.DataFrame([[2,"14000",3,4],[1,"1750",7,8]],columns=['A','B','C','D'])
-df.sort_values(['A','B'],ascending=[True,True],inplace=True)
-print(df)
-
-print(sorted(["14000","1750"],reverse=True))
+# df.sort_values(['A','B'],ascending=[True,True],inplace=True)
+a = df.loc[:,"B"]
+print(a)
