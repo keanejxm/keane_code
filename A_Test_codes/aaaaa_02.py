@@ -10,5 +10,6 @@ import pandas as pd
 
 df = pd.DataFrame([[2,"14000",3,4],[1,"1750",7,8]],columns=['A','B','C','D'])
 # df.sort_values(['A','B'],ascending=[True,True],inplace=True)
+df_list = df.tolist()
 a = df.loc[:,"B"]
 print(a)
