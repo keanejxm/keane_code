@@ -163,6 +163,12 @@ def train(model, transform):
         avg_accuracy = sum(accuracies) / len(accuracies)
         print(f"epoch_id:{epoch_id}, avg_accuracy:{avg_accuracy}")
 
+    # 保存模型
+    paddle.jit.save(model, path_py)
+    print("model saved")
+    # 加载模型
+    loaded_model = paddle.jit.load(path_py)
+
 
 transformer = Compose([Resize((227, 227)), ToTensor()])
 train(AlexNetPaddle(), transformer)
