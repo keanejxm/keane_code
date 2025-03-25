@@ -118,7 +118,7 @@ class AlexNetPaddle(nn.Layer):
 def train(model, transform):
     model.train()
     # 批次
-    epoch_num = 100
+    epoch_num = 2
     train_num = 0
     # 优化器
     optimizer = paddle.optimizer.Adam(learning_rate=0.001, parameters=model.parameters())
@@ -143,9 +143,10 @@ def train(model, transform):
             loss.backward()
             optimizer.step()
             optimizer.clear_grad()
-            if batch_id % 10 ==0:
+            if batch_id % 10 == 0:
                 print(f"epoch_id:{epoch_id}, batch_id:{batch_id}, loss:{loss.numpy()}")
-        #测试集评估
+
+        # 测试集评估
         model.eval()
         accuracies = []
         losses = []
