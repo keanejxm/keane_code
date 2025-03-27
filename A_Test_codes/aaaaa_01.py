@@ -4,7 +4,7 @@
 :author: keane
 :file  aaaaa_01.py
 :time  2025/1/26 13:54
-:desc  
+:desc
 """
 import os
 from pathlib import Path
@@ -50,7 +50,6 @@ class ModelConfig:
     VALID_FREQ: int = 1
     EVAL_STEPS: int = 10
     SAVE_STEPS: int = 50
-
 
 
 class FruitClassifier:
@@ -211,9 +210,6 @@ class Trainer:
             # 训练阶段
             self.model.train()
             train_loss = 0.0
-
-
-
             for batch_idx, (data, labels) in enumerate(train_loader):
                 labels = paddle.unsqueeze(labels, 1)
                 output = self.model(data)
@@ -229,10 +225,14 @@ class Trainer:
                     print(f"Epoch: {epoch}, Batch: {batch_idx}, Loss: {loss.numpy()}")
 
                 if batch_idx % ModelConfig.SAVE_STEPS == 0:
-                    self.evaluate(test_loader,criterion, metric,best_accuracy)
-                    self.save_model(f"model_epoch_{epoch}_batch_{batch_idx}")
+                    val_accuracy = self.evaluate(test_loader, criterion, metric)
+                    best_accuracy = self.save_model(
+                        val_accuracy,
+                        best_accuracy,
+                        f"model_epoch_{epoch}_batch_{batch_idx}"
+                    )
 
-    def evaluate(self,test_loader,criterion,metric,best_accuracy) -> float:
+    def evaluate(self, test_loader, criterion, metric) -> float:
         """评估模型"""
         self.model.eval()
         val_loss = 0.0
@@ -244,31 +244,29 @@ class Trainer:
                 target = paddle.unsqueeze(target, 1)
                 output = self.model(data)
                 val_loss += criterion(output, target).numpy()[0]
-                correct = metric.accuracy(output, target)
+                correct = metric.compute(output, target)
                 metric.update(correct)
                 # accuracies.append(acc.numpy())
+                # val_bar.set_postfix({"val_loss": f"{val_loss / (batch_idx + 1):.4f}"})
 
         val_accuracy = metric.accumulate()
         avg_val_loss = val_loss / len(test_loader.dataset)
         print(f"\nValidation - Loss: {avg_val_loss:.4f}, Accuracy: {val_accuracy:.4f}")
+        return val_accuracy
 
+    def save_model(self, val_accuracy, best_accuracy, name: str) -> None:
+        """保存模型"""
         # 保存最佳模型
         if val_accuracy > best_accuracy:
             best_accuracy = val_accuracy
             paddle.jit.save(
                 self.model,
-                path = ModelConfig.MODEL_DIR,
+                path=os.path.join(ModelConfig.MODEL_DIR, name),
                 input_spec=[paddle.static.InputSpec(shape=[None, 3, 224, 224], dtype='float32')],
             )
-        avg_accuracy = np.mean(accuracies)
-        print(f"Validation Accuracy: {avg_accuracy:.4f}")
-        return avg_accuracy
-
-    def save_model(self, name: str) -> None:
-        """保存模型"""
-        save_path = Path("models") / name
-        paddle.jit.save(self.model, str(save_path))
-        print(f"Model saved to {save_path}")
+        # avg_accuracy = np.mean(accuracies)
+        # print(f"Validation Accuracy: {avg_accuracy:.4f}")
+        return best_accuracy
 
 
 class Predictor:
