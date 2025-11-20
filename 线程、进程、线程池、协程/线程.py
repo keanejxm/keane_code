@@ -97,6 +97,25 @@ class ThreadPoolPractice:
         )
 
 
+
+
+import time
+from concurrent.futures import ThreadPoolExecutor,as_completed
+
+
+def _process_statements(i):
+    # print(f"{i}\n")
+    time.sleep(1)
+    return i
+
+
+def process_statements():
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [executor.submit(_process_statements, i) for i in range(30)]
+        for future in as_completed(futures):
+            print(f"{future.result()}")
+
+
 if __name__ == '__main__':
     obj = ThreadPoolPractice()
     obj.run_thread_pool()
