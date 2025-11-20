@@ -7,7 +7,7 @@
 # @Software: PyCharm
 import time
 
-from src.thsauto_ import WindowService
+from thsauto_ import WindowService
 
 
 class PositionThs:
@@ -137,4 +137,5 @@ class PositionThs:
 if __name__ == '__main__':
     obj = PositionThs()
     print(obj.get_balance())
+    print(obj.send_order(stock_code="600200",buy_price="1.0",buy_volume="1"))
 
