@@ -13,9 +13,13 @@ from thsauto_ import WindowService
 class PositionThs:
     def __init__(self):
         self.windows_service = WindowService()
-        self.win_windows = self._init_windows()
+        # self.win_windows = self._init_windows()
+
 
     def _init_windows(self):
+        win_windows = self.windows_service.fetch_window_hwnd()
+
+    def _init_windows_trade(self):
         """
         初始化同花顺客户端展示窗口
         :return:
@@ -40,7 +44,7 @@ class PositionThs:
             raise Exception("未找到同花顺客户端窗口")
 
     # 获取资金信息
-    def get_balance(self):
+    def api_get_balance(self):
         # 定义需要获取的字段及其对应的control_id
         balance_fields = {
             '资金余额': 1012,
@@ -64,7 +68,7 @@ class PositionThs:
         return result
 
     # 下单
-    def send_order(self, stock_code=None, buy_price=None, buy_volume=None):
+    def api_send_order(self, stock_code=None, buy_price=None, buy_volume=None):
         # 证券代码
         stock_code = "600200"
         # 买入价格
@@ -109,7 +113,7 @@ class PositionThs:
                     for new_window in new_windows
                     for child in new_window["children"]
                     if child.get("title") == title
-            ),
+                ),
                 None
             )
             if not confirm_button:
@@ -123,20 +127,29 @@ class PositionThs:
         self.windows_service.click_control_by_handle(confirm_window_data["hwnd"])
         # 继续委托
         time.sleep(2)
-        continue_enturst_data1=confirm_window_params(title="继续委托")
+        continue_enturst_data1 = confirm_window_params(title="继续委托")
         self.windows_service.click_control_by_handle(continue_enturst_data1["hwnd"])
         # 继续委托
         time.sleep(2)
-        continue_enturst_data2=confirm_window_params(title="继续委托")
+        continue_enturst_data2 = confirm_window_params(title="继续委托")
         self.windows_service.click_control_by_handle(continue_enturst_data2["hwnd"])
         # 获取下单结果
         # result = self.windows_service.get_control_text_by_handle(1007)
         # return result
 
-
+    def _init_start(self):
+        app_path = "F:\\同花顺远航版\\bin\\hexinlauncher.exe"
+        self.windows_service.start_app(app_path)
+        print("---")
+    # 登录
+    def api_login_ths(self, phoneNumber=None, password=None):
+        # 获取登录窗口
+        login_window = self.windows_service.fetch_window_hwnd()
+        for window_ in login_window:
+            print(window_)
 
 if __name__ == '__main__':
     obj = PositionThs()
-    print(obj.get_balance())
-    print(obj.send_order(stock_code="600200",buy_price="1.0",buy_volume="1"))
+    obj._init_start()
 
+    # print(obj.api_login_ths())
