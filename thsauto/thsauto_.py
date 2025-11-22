@@ -270,7 +270,6 @@ class WindowService:
             app = Application(backend='uia').start(app_path)
             # 等待窗口可见
             time.sleep(3)
-            print(app.process)
-            app = Application().connect()
+
         except Exception as e:
             print(f"启动应用失败: {str(e)}")

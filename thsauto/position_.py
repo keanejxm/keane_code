@@ -138,7 +138,8 @@ class PositionThs:
         # return result
 
     def _init_start(self):
-        app_path = "F:\\同花顺远航版\\bin\\hexinlauncher.exe"
+        # app_path = "F:\\同花顺远航版\\bin\\hexinlauncher.exe"
+        app_path = "D:\\同花顺远航版\\bin\\hexinlauncher.exe"
         self.windows_service.start_app(app_path)
         print("---")
     # 登录
