@@ -9,7 +9,7 @@ import win32gui
 import win32con
 import win32api
 import time
-from pywinauto import Desktop
+from pywinauto import Desktop,Application
 from ctypes import Structure, windll, c_uint, sizeof, byref
 
 KEY_MAP = {
@@ -252,7 +252,6 @@ class WindowService:
         return None
 
     # 通过id获取句柄
-
     def find_element_in_window(self, window):
         element_list = list()
         descendants = window.descendants()
@@ -265,4 +264,13 @@ class WindowService:
                 element_list.append(dict(controlId=element.control_id(), controlText=element.window_text(), hwnd=hwnd))
         return element_list
 
-
+    def start_app(self, app_path):
+        try:
+            # win32api.ShellExecute(0, 'open', app_path, '', '', 1)
+            app = Application(backend='uia').start(app_path)
+            # 等待窗口可见
+            time.sleep(3)
+            print(app.process)
+            app = Application().connect()
+        except Exception as e:
+            print(f"启动应用失败: {str(e)}")
